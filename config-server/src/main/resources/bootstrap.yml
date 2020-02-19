@@ -1,0 +1,30 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config-service
+
+  profiles:
+    active: dev
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/prahladawasthi/NetflixStackOnPCF.git
+          searchPaths: Config
+          skip-ssl-validation: true
+          clone-on-start: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+## Configuring info endpoint
+info:
+  app:
+    name: Config Service Application
+    description: This is my first spring boot application
+  version: 0.0.1-SNAPSHOT

@@ -1,0 +1,52 @@
+server:
+  port: 9999
+  
+## Configuring info endpoint
+info:
+  app:
+    name: Api Gateway Service Application
+    description: This is my first spring boot application
+  version: 0.0.1-SNAPSHOT
+spring:
+  profiles:
+    active: dev
+  application:
+    name: api-gateway-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: order-service
+        uri: lb://order-service
+        predicates:
+        - Path=/order-service/**
+        filters:
+        - name: CircuitBreaker
+          args:
+            name: order-service
+            fallbackUri: forward:/orderServiceFailback
+      - id: product-service
+        uri: lb://product-service
+        predicates:
+        - Path=/product-service/**
+        filters:
+        - name: CircuitBreaker
+          args:
+            name: product-service
+            fallbackUri: forward:/productServiceFailback
+        
+
+        
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" 
+
+
+

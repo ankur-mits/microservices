@@ -1,0 +1,26 @@
+server:
+  port: 8081
+
+## Configuring info endpoint
+info:
+  app:
+    name: Order Service Application
+    description: This is my first spring boot application
+  version: 0.0.1-SNAPSHOT
+spring:
+  profiles:
+    active: dev
+  application:
+    name: order-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+      allow-override: true
+      override-none: true
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

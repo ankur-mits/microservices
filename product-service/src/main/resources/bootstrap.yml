@@ -1,0 +1,28 @@
+server:
+  port: 8082
+  
+## Configuring info endpoint
+info:
+  app:
+    name: Product Service Application
+    description: This is my first spring boot application
+  version: 0.0.1-SNAPSHOT
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: product-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+      allow-override: true
+      override-none: true
+
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
